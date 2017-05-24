@@ -11,24 +11,25 @@
         <Button x:Name="buttonCE" Content="CE" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="0,233,0,0" FontSize="21.333" />
         <Button x:Name="buttonC" Content="C" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="105,233,0,0" FontSize="21.333"/>
         <Button x:Name="buttonBackSpace" Content="◀" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="210,233,0,0" FontSize="21.333"/>
-        <Button x:Name="buttonDivision" Content="/" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="315,233,0,0" FontSize="21.333"/>
-        <Button x:Name="buttonSeven" Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="0,311,0,0" FontSize="21.333"/>
-        <Button x:Name="buttonEgiht" Content="8" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="105,311,0,0" FontSize="21.333"/>
-        <Button x:Name="buttonNine" Content="9" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="210,311,0,0" FontSize="21.333"/>
+        <Button x:Name="buttonDivision" Content="÷" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="315,233,0,0" FontSize="26.667"/>
+        <Button x:Name="buttonSeven" Content="7" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="0,311,0,0" FontSize="21.333" FontWeight="Bold"/>
+        <Button x:Name="buttonEgiht" Content="8" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="105,311,0,0" FontSize="21.333" FontWeight="Bold"/>
+        <Button x:Name="buttonNine" Content="9" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="210,311,0,0" FontSize="21.333" FontWeight="Bold"/>
         <Button x:Name="buttonMultiple" Content="×" HorizontalAlignment="Left" VerticalAlignment="Top" Width="105" Height="78" Margin="315,311,0,0" FontSize="29.333"/>
-        <Button x:Name="buttonFour" Content="4" HorizontalAlignment="Left" Margin="0,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
-        <Button x:Name="buttonFive" Content="5" HorizontalAlignment="Left" Margin="105,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
-        <Button x:Name="buttonSix" Content="6" HorizontalAlignment="Left" Margin="210,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
+        <Button x:Name="buttonFour" Content="4" HorizontalAlignment="Left" Margin="0,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
+        <Button x:Name="buttonFive" Content="5" HorizontalAlignment="Left" Margin="105,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
+        <Button x:Name="buttonSix" Content="6" HorizontalAlignment="Left" Margin="210,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
         <Button x:Name="buttonPlus" Content="+" HorizontalAlignment="Left" Margin="315,467,0,0" VerticalAlignment="Top" Width="105" Height="78" RenderTransformOrigin="0.504,0.714" FontSize="29.333"/>
-        <Button x:Name="buttonOne" Content="1" HorizontalAlignment="Left" Margin="0,467,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
-        <Button x:Name="buttonTwo" Content="2" HorizontalAlignment="Left" Margin="105,467,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
-        <Button x:Name="buttonThree" Content="3" HorizontalAlignment="Left" Margin="210,467,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
+        <Button x:Name="buttonOne" Content="1" HorizontalAlignment="Left" Margin="0,467,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
+        <Button x:Name="buttonTwo" Content="2" HorizontalAlignment="Left" Margin="105,467,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
+        <Button x:Name="buttonThree" Content="3" HorizontalAlignment="Left" Margin="210,467,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
         <Button x:Name="buttonMinus" Content="―" HorizontalAlignment="Left" Margin="315,389,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
         <Button x:Name="buttonPlma" Content="±" HorizontalAlignment="Left" Margin="0,544,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="29.333"/>
-        <Button x:Name="buttonZero" Content="0" HorizontalAlignment="Left" Margin="105,544,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333"/>
+        <Button x:Name="buttonZero" Content="0" HorizontalAlignment="Left" Margin="105,544,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="21.333" FontWeight="Bold"/>
         <Button x:Name="buttonDot" Content="." HorizontalAlignment="Left" Margin="210,544,0,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="24" FontWeight="Bold"/>
         <Button x:Name="buttonEqual" Content="=" HorizontalAlignment="Left" Margin="315,544,-3,0" VerticalAlignment="Top" Width="105" Height="78" FontSize="29.333"/>
-        <TextBox x:Name="textBox"  TextAlignment="Right"  Height="140" Text="0" VerticalAlignment="Top" TextWrapping="NoWrap" Width="421" IsEnabled="False" FontSize="96" BorderThickness="0" Margin="0,93,0,0" BorderBrush="Black" Background="{x:Null}" AcceptsReturn="True" />
-        <TextBlock x:Name="textBlock" TextAlignment="Right" HorizontalAlignment="Left" Height="45" TextWrapping="NoWrap" Text="{Binding ElementName=textBox, Path=Text}" VerticalAlignment="Top" Width="398" FontSize="29.333" Margin="0,48,0,0" Foreground="#FFA9A8A8"/>
+        <TextBox x:Name="textBox"  TextAlignment="Right"  Height="145" Text="0" VerticalAlignment="Bottom" TextWrapping="NoWrap" IsEnabled="False" FontSize="96" BorderThickness="0" Margin="-16,0,0,389.6" BorderBrush="{x:Null}" Background="{x:Null}" AcceptsReturn="True" Foreground="Black" />
+        <TextBox x:Name="displayBox" TextAlignment="Right" HorizontalAlignment="Left" Height="50"  TextWrapping="NoWrap" VerticalAlignment="Top" Width="420" IsEnabled="False" Margin="0,38,0,0" Background="{x:Null}" FontSize="26.667" Foreground="#FF969696" BorderBrush="{x:Null}"/>
+
     </Grid>
 </UserControl>

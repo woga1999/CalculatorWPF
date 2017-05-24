@@ -21,133 +21,107 @@ namespace Calculator
     public partial class MainWindow : Window
     {
         NumberButton numberButton = new NumberButton();
-        List<string> number = new List<string>();
+        bool check = false;
+        private double value1 = 0;
+        private double value2 = 0;
+        private double result = 0;
+        private int flag = 0;
         public MainWindow()
         {
             InitializeComponent();
             MainGrid.Children.Add(numberButton);
-            numberButton.textBlock.Text = "";
             numberButton.buttonCE.Click += btn_CE_Click;
-            //numberButton.buttonC.Click += btnCEClick;
+            numberButton.buttonC.Click += btn_C_Click;
             numberButton.buttonBackSpace.Click += btn_BS_Click;
-            //numberButton.buttonDivision.Click += btnCEClick;
-            numberButton.buttonSeven.Click += btn_Seven_Click;
-            numberButton.buttonEgiht.Click += btn_Egiht_Click;
-            numberButton.buttonNine.Click += btn_Nine_Click;
-            //numberButton.buttonMultiple.Click += btnCEClick;
-            numberButton.buttonFour.Click += btn_Four_Click;
-            numberButton.buttonFive.Click += btn_Five_Click;
-            numberButton.buttonSix.Click += btn_Six_Click;
-            //numberButton.buttonPlus.Click += btnCEClick;
-            numberButton.buttonOne.Click += btn_One_Click;
-            numberButton.buttonTwo.Click += btn_Two_Click;
-            numberButton.buttonThree.Click += btn_Three_Click;
-            //numberButton.buttonMinus.Click += btnCEClick;
+            numberButton.buttonDivision.Click += btn_Division_Click;
+            numberButton.buttonSeven.Click += btn_Num_Click;
+            numberButton.buttonEgiht.Click += btn_Num_Click;
+            numberButton.buttonNine.Click += btn_Num_Click;
+            numberButton.buttonMultiple.Click += btn_Multiple_Click;
+            numberButton.buttonFour.Click += btn_Num_Click;
+            numberButton.buttonFive.Click += btn_Num_Click;
+            numberButton.buttonSix.Click += btn_Num_Click;
+            numberButton.buttonPlus.Click += btn_Plus_Click;
+            numberButton.buttonOne.Click += btn_Num_Click;
+            numberButton.buttonTwo.Click += btn_Num_Click;
+            numberButton.buttonThree.Click += btn_Num_Click;
+            numberButton.buttonMinus.Click += btn_Minus_Click;
             numberButton.buttonPlma.Click += btn_Plma_Click;
-            numberButton.buttonZero.Click += btn_Zero_Click;
+            numberButton.buttonZero.Click += btn_Num_Click;
             numberButton.buttonDot.Click += btn_Dot_Click;
             //numberButton.buttonEqual.Click += btnCEClick;
         }
-       
+        void btn_C_Click(object sender, RoutedEventArgs e)
+        {
+            numberButton.textBox.Text = "0";
+            numberButton.displayBox.Clear();
+        }
         void btn_CE_Click(object sender, RoutedEventArgs e)
         {
             numberButton.textBox.Text = "0";
         }
         void btn_BS_Click(object sender, RoutedEventArgs e)
         {
-            if (!numberButton.textBox.Text.Equals("") || !(numberButton.textBox.Text.Equals("0")) )
+            if (!numberButton.textBox.Text.Equals("") || !(numberButton.textBox.Text.Equals("0")))
             {
-                if (numberButton.textBox.Text.Length.Equals(1))
+                if (numberButton.textBox.Text.Contains("-") && numberButton.textBox.Text.Length == 2)
                 {
                     numberButton.textBox.Text = "0";
                 }
-                else
+                else if (numberButton.textBox.Text.Length.Equals(1))
+                {
+                    numberButton.textBox.Text = "0";
+                }
+                else if(!numberButton.displayBox.Text.Contains("+") && !numberButton.displayBox.Text.Contains("-") && !numberButton.displayBox.Text.Contains("*") && !numberButton.displayBox.Text.Contains("÷"))
                 {
                     numberButton.textBox.Text = numberButton.textBox.Text.Remove(numberButton.textBox.Text.Length - 1, 1);
                 }
             }
+           
         }
-        void btn_Zero_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
-            {
-                numberButton.textBox.Clear();
-            }
-            numberButton.textBox.Text = numberButton.textBox.Text + "0";
-        }
-        void btn_One_Click(object sender, RoutedEventArgs e)
+        void btn_Num_Click(object sender, RoutedEventArgs e)
         {
             Button btn = sender as Button;
             if (numberButton.textBox.Text == "0")
             {
                 numberButton.textBox.Clear();
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "1";
-        }
-        void btn_Two_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            if(flag==0 && (numberButton.displayBox.Text.Contains("+")|| numberButton.displayBox.Text.Contains("*")|| numberButton.displayBox.Text.Contains("-")|| numberButton.displayBox.Text.Contains("/")))
             {
                 numberButton.textBox.Clear();
+                flag = 1;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "2";
-        }
-        void btn_Three_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            if (numberButton.textBox.Text.Length < 8)
             {
-                numberButton.textBox.Clear();
+                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "3";
-        }
-        void btn_Four_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            else if (numberButton.textBox.Text.Length >= 8 && numberButton.textBox.Text.Length<11)
             {
-                numberButton.textBox.Clear();
+                numberButton.textBox.FontSize = 69.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "4";
-        }
-        void btn_Five_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            else if(numberButton.textBox.Text.Length >= 11 && numberButton.textBox.Text.Length <12)
             {
-                numberButton.textBox.Clear();
+                numberButton.textBox.FontSize = 60.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "5";
-        }
-        void btn_Six_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            else if (numberButton.textBox.Text.Length == 12)
             {
-                numberButton.textBox.Clear();
+                numberButton.textBox.FontSize = 56.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "6";
-        }
-        void btn_Seven_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            else if (numberButton.textBox.Text.Length == 13)
             {
-                numberButton.textBox.Clear();
+                numberButton.textBox.FontSize = 52.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "7";
-        }
-        void btn_Egiht_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
+            else if (numberButton.textBox.Text.Length >=14 && numberButton.textBox.Text.Length <16)
             {
-                numberButton.textBox.Clear();
+                numberButton.textBox.FontSize = 48.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
             }
-            numberButton.textBox.Text = numberButton.textBox.Text + "8";
         }
-        void btn_Nine_Click(object sender, RoutedEventArgs e)
-        {
-            if (numberButton.textBox.Text == "0")
-            {
-                numberButton.textBox.Clear();
-            }
-            numberButton.textBox.Text = numberButton.textBox.Text + "9";
-        }
+
         void btn_Dot_Click(object sender, RoutedEventArgs e)
         {
             if (!numberButton.textBox.Text.Contains("."))
@@ -155,17 +129,83 @@ namespace Calculator
                 numberButton.textBox.Text = numberButton.textBox.Text + ".";
             }
         }
+
         void btn_Plus_Click(object sender, RoutedEventArgs e)
         {
-
+            if (numberButton.displayBox.Text == "")
+            {
+                numberButton.displayBox.Text = numberButton.textBox.Text + " + ";
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+            }
+            else
+            {
+                numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text+ " + ";
+                flag = 0;
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                result = Add(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            
         }
+
         void btn_Minus_Click(object sender, RoutedEventArgs e)
         {
-
+            if (numberButton.displayBox.Text == "")
+            {
+                numberButton.displayBox.Text = numberButton.textBox.Text + " - ";
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+            }
+            else
+            {
+                numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " - ";
+                flag = 0;
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                result = Minus(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            
         }
+        void btn_Multiple_Click(object sender, RoutedEventArgs e)
+        {
+            if (numberButton.displayBox.Text == "")
+            {
+                numberButton.displayBox.Text = numberButton.textBox.Text + " x ";
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+            }
+            else
+            {
+                numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " x ";
+                flag = 0;
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                result = Multiple(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            
+        }
+        void btn_Division_Click(object sender, RoutedEventArgs e)
+        {
+            if (numberButton.displayBox.Text == "")
+            {
+                numberButton.displayBox.Text = numberButton.textBox.Text + " ÷ ";
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+            }
+            else
+            {
+                numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " ÷ ";
+                flag = 0;
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                result = Division(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            
+        }
+
         void btn_Plma_Click(object sender, RoutedEventArgs e)
         {
-            
             if (numberButton.textBox.Text.Contains("-"))
             {
                 numberButton.textBox.Text = numberButton.textBox.Text.Remove(0,1);
@@ -178,13 +218,28 @@ namespace Calculator
                 }
             }
         }
-        void btn_Division_Click(object sender, RoutedEventArgs e)
-        {
 
-        }
-        void Calculate()
+        void btn_Equals_Clikc(object sender, RoutedEventArgs e)
         {
-            numberButton.textBox.FontSize = 24;
+            numberButton.displayBox.Clear();
+        }
+        
+
+        double Add(double value1, double value2)
+        {
+            return value1 + value2;
+        }
+        double Minus(double value1, double value2)
+        {
+            return value1 - value2;
+        }
+        double Multiple(double value1, double value2)
+        {
+            return value1 * value2;
+        }
+        double Division(double value1, double value2)
+        {
+            return value1 / value2;
         }
     }
 }
