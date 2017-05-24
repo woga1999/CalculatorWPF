@@ -29,7 +29,7 @@ namespace Calculator
             numberButton.textBlock.Text = "";
             numberButton.buttonCE.Click += btn_CE_Click;
             //numberButton.buttonC.Click += btnCEClick;
-            //numberButton.buttonBackSpace.Click += btnCEClick;
+            numberButton.buttonBackSpace.Click += btn_BS_Click;
             //numberButton.buttonDivision.Click += btnCEClick;
             numberButton.buttonSeven.Click += btn_Seven_Click;
             numberButton.buttonEgiht.Click += btn_Egiht_Click;
@@ -52,6 +52,20 @@ namespace Calculator
         void btn_CE_Click(object sender, RoutedEventArgs e)
         {
             numberButton.textBox.Text = "0";
+        }
+        void btn_BS_Click(object sender, RoutedEventArgs e)
+        {
+            if (!numberButton.textBox.Text.Equals("") || !(numberButton.textBox.Text.Equals("0")) )
+            {
+                if (numberButton.textBox.Text.Length.Equals(1))
+                {
+                    numberButton.textBox.Text = "0";
+                }
+                else
+                {
+                    numberButton.textBox.Text = numberButton.textBox.Text.Remove(numberButton.textBox.Text.Length - 1, 1);
+                }
+            }
         }
         void btn_Zero_Click(object sender, RoutedEventArgs e)
         {
