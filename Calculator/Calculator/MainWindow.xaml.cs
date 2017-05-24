@@ -21,7 +21,7 @@ namespace Calculator
     public partial class MainWindow : Window
     {
         NumberButton numberButton = new NumberButton();
-        bool check = false;
+        private string operate = null;
         private double value1 = 0;
         private double value2 = 0;
         private double result = 0;
@@ -56,10 +56,12 @@ namespace Calculator
             numberButton.textBox.Text = "0";
             numberButton.displayBox.Clear();
         }
+
         void btn_CE_Click(object sender, RoutedEventArgs e)
         {
             numberButton.textBox.Text = "0";
         }
+
         void btn_BS_Click(object sender, RoutedEventArgs e)
         {
             if (!numberButton.textBox.Text.Equals("") || !(numberButton.textBox.Text.Equals("0")))
@@ -91,37 +93,35 @@ namespace Calculator
                 numberButton.textBox.Clear();
                 flag = 1;
             }
-            if (numberButton.textBox.Text.Length < 8)
+            lengthFontSize(btn.Content);
+        }
+        void checkCalculate(string operate)
+        {
+            if (operate == "+")
             {
-                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
+                result = Add(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
             }
-            else if (numberButton.textBox.Text.Length >= 8 && numberButton.textBox.Text.Length<11)
+            else if (operate == "-")
             {
-                numberButton.textBox.FontSize = 69.0;
-                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
+                result = Minus(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
             }
-            else if(numberButton.textBox.Text.Length >= 11 && numberButton.textBox.Text.Length <12)
+            else if (operate == "*")
             {
-                numberButton.textBox.FontSize = 60.0;
-                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
+                result = Multiple(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
             }
-            else if (numberButton.textBox.Text.Length == 12)
+            else if (operate == "/")
             {
-                numberButton.textBox.FontSize = 56.0;
-                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
-            }
-            else if (numberButton.textBox.Text.Length == 13)
-            {
-                numberButton.textBox.FontSize = 52.0;
-                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
-            }
-            else if (numberButton.textBox.Text.Length >=14 && numberButton.textBox.Text.Length <16)
-            {
-                numberButton.textBox.FontSize = 48.0;
-                numberButton.textBox.Text = numberButton.textBox.Text + btn.Content;
+                result = Division(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
             }
         }
-
         void btn_Dot_Click(object sender, RoutedEventArgs e)
         {
             if (!numberButton.textBox.Text.Contains("."))
@@ -135,18 +135,17 @@ namespace Calculator
             if (numberButton.displayBox.Text == "")
             {
                 numberButton.displayBox.Text = numberButton.textBox.Text + " + ";
-                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                value1 = Convert.ToDouble(numberButton.textBox.Text);
+                operate = "+";
             }
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text+ " + ";
                 flag = 0;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
-                result = Add(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
+                checkCalculate(operate);
+                operate = "+";
             }
-            
         }
 
         void btn_Minus_Click(object sender, RoutedEventArgs e)
@@ -154,34 +153,40 @@ namespace Calculator
             if (numberButton.displayBox.Text == "")
             {
                 numberButton.displayBox.Text = numberButton.textBox.Text + " - ";
-                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                value1 = Convert.ToDouble(numberButton.textBox.Text);
+                operate = "-";
             }
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " - ";
                 flag = 0;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
-                result = Minus(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
+                checkCalculate(operate);
+                operate = "-";
+                //result = Minus(value1, value2);
+                //numberButton.textBox.Text = result.ToString();
+                //value1 = result;
             }
-            
+
         }
         void btn_Multiple_Click(object sender, RoutedEventArgs e)
         {
             if (numberButton.displayBox.Text == "")
             {
                 numberButton.displayBox.Text = numberButton.textBox.Text + " x ";
-                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                value1= Convert.ToDouble(numberButton.textBox.Text);
+                operate = "*";
             }
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " x ";
                 flag = 0;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
-                result = Multiple(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
+                checkCalculate(operate);
+                operate = "*";
+                //result = Multiple(value1, value2);
+                //numberButton.textBox.Text = result.ToString();
+                //value1 = result;
             }
             
         }
@@ -190,16 +195,19 @@ namespace Calculator
             if (numberButton.displayBox.Text == "")
             {
                 numberButton.displayBox.Text = numberButton.textBox.Text + " ÷ ";
-                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                value1 = Convert.ToDouble(numberButton.textBox.Text);
+                operate = "/";
             }
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " ÷ ";
                 flag = 0;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
-                result = Division(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
+                checkCalculate(operate);
+                operate = "/";
+                //result = Division(value1, value2);
+                //numberButton.textBox.Text = result.ToString();
+                //value1 = result;
             }
             
         }
@@ -223,23 +231,59 @@ namespace Calculator
         {
             numberButton.displayBox.Clear();
         }
-        
 
         double Add(double value1, double value2)
         {
             return value1 + value2;
         }
+
         double Minus(double value1, double value2)
         {
+            if (value1 == 0) { value2 = -value2; }
             return value1 - value2;
         }
+
         double Multiple(double value1, double value2)
         {
             return value1 * value2;
         }
+
         double Division(double value1, double value2)
         {
             return value1 / value2;
+        }
+
+        void lengthFontSize(object btn)
+        {
+            if (numberButton.textBox.Text.Length < 8)
+            {
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
+            else if (numberButton.textBox.Text.Length >= 8 && numberButton.textBox.Text.Length < 11)
+            {
+                numberButton.textBox.FontSize = 69.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
+            else if (numberButton.textBox.Text.Length >= 11 && numberButton.textBox.Text.Length < 12)
+            {
+                numberButton.textBox.FontSize = 60.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
+            else if (numberButton.textBox.Text.Length == 12)
+            {
+                numberButton.textBox.FontSize = 56.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
+            else if (numberButton.textBox.Text.Length == 13)
+            {
+                numberButton.textBox.FontSize = 52.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
+            else if (numberButton.textBox.Text.Length >= 14 && numberButton.textBox.Text.Length < 16)
+            {
+                numberButton.textBox.FontSize = 48.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
         }
     }
 }
