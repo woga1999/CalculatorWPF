@@ -118,7 +118,7 @@ namespace Calculator
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text+ " + ";
-                flag = 0;
+                flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "+";
@@ -137,7 +137,7 @@ namespace Calculator
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " - ";
-                flag = 0;
+                flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "-";
@@ -156,7 +156,7 @@ namespace Calculator
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " x ";
-                flag = 0;
+                flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "*";
@@ -175,7 +175,7 @@ namespace Calculator
             else
             {
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " ÷ ";
-                flag = 0;
+                flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "/";
