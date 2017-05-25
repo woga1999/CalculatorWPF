@@ -20,7 +20,9 @@ namespace Calculator
     /// </summary>
     public partial class MainWindow : Window
     {
+        ScaleTransform scale = new ScaleTransform();
         NumberButton numberButton = new NumberButton();
+        double orginalWidth, originalHeight;
         private string operate = null;
         private double value1 = 0;
         private double value2 = 0;
@@ -30,6 +32,7 @@ namespace Calculator
         public MainWindow()
         {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(Window_Loaded);
             MainGrid.Children.Add(numberButton);
             numberButton.buttonCE.Click += btn_CE_Click;
             numberButton.buttonC.Click += btn_C_Click;
@@ -370,6 +373,33 @@ namespace Calculator
                     value1 = result;
                 }
             }
+        }
+        void Window_SizeChanged(object sender, SizeChangedEventArgs e)
+        {
+            ChangeSize(e.NewSize.Width, e.NewSize.Height);
+        }
+
+        void Window_Loaded(object sender, RoutedEventArgs e)
+        {
+            orginalWidth = this.Width;
+            originalHeight = this.Height;
+
+            if (this.WindowState == WindowState.Maximized)
+            {
+                ChangeSize(this.ActualWidth, this.ActualHeight);
+            }
+
+            this.SizeChanged += new SizeChangedEventHandler(Window_SizeChanged);
+        }
+
+        private void ChangeSize(double width, double height)
+        {
+            scale.ScaleX = width / orginalWidth;
+            scale.ScaleY = height / originalHeight;
+
+            FrameworkElement rootElement = this.Content as FrameworkElement;
+
+            rootElement.LayoutTransform = scale;
         }
     }
 }
