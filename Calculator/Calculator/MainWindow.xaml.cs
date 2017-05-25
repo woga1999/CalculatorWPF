@@ -26,6 +26,7 @@ namespace Calculator
         private double value2 = 0;
         private double result = 0;
         private int flag = 0;
+        private bool checkVal = false;
         public MainWindow()
         {
             InitializeComponent();
@@ -96,33 +97,7 @@ namespace Calculator
             }
             lengthFontSize(btn.Content);
         }
-        void checkCalculate(string operate)
-        {
-            if (operate == "+")
-            {
-                result = Add(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
-            }
-            else if (operate == "-")
-            {
-                result = Minus(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
-            }
-            else if (operate == "*")
-            {
-                result = Multiple(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
-            }
-            else if (operate == "/")
-            {
-                result = Division(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
-            }
-        }
+        
         void btn_Dot_Click(object sender, RoutedEventArgs e)
         {
             if (!numberButton.textBox.Text.Contains("."))
@@ -204,9 +179,6 @@ namespace Calculator
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "/";
-                //result = Division(value1, value2);
-                //numberButton.textBox.Text = result.ToString();
-                //value1 = result;
             }
             
         }
@@ -228,7 +200,11 @@ namespace Calculator
 
         void btn_Equals_Clikc(object sender, RoutedEventArgs e)
         {
-            value2 = Convert.ToDouble(numberButton.textBox.Text);
+            if (checkVal.Equals(false))
+            {
+                value2 = Convert.ToDouble(numberButton.textBox.Text);
+                checkVal = true;
+            }
             numberButton.displayBox.Clear();
             checkCalculate(operate);
         }
@@ -284,6 +260,33 @@ namespace Calculator
             {
                 numberButton.textBox.FontSize = 48.0;
                 numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
+        }
+        void checkCalculate(string operate)
+        {
+            if (operate == "+")
+            {
+                result = Add(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            else if (operate == "-")
+            {
+                result = Minus(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            else if (operate == "*")
+            {
+                result = Multiple(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
+            }
+            else if (operate == "/")
+            {
+                result = Division(value1, value2);
+                numberButton.textBox.Text = result.ToString();
+                value1 = result;
             }
         }
     }
