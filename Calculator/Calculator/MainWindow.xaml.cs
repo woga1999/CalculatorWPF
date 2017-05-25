@@ -117,6 +117,10 @@ namespace Calculator
             }
             else
             {
+                if (numberButton.displayBox.Text.Length >= 25)
+                {
+                    numberButton.displayBox.Text = numberButton.displayBox.Text.Remove(0, numberButton.textBox.Text.Length + 3);
+                }
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text+ " + ";
                 flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
@@ -136,6 +140,10 @@ namespace Calculator
             }
             else
             {
+                if (numberButton.displayBox.Text.Length >= 25)
+                {
+                    numberButton.displayBox.Text = numberButton.displayBox.Text.Remove(0, numberButton.textBox.Text.Length + 3);
+                }
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " - ";
                 flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
@@ -155,6 +163,10 @@ namespace Calculator
             }
             else
             {
+                if (numberButton.displayBox.Text.Length >= 25)
+                {
+                    numberButton.displayBox.Text = numberButton.displayBox.Text.Remove(0, numberButton.textBox.Text.Length+3);
+                }
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " x ";
                 flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
@@ -174,6 +186,10 @@ namespace Calculator
             }
             else
             {
+                if (numberButton.displayBox.Text.Length >= 25)
+                {
+                    numberButton.displayBox.Text = numberButton.displayBox.Text.Remove(0, numberButton.textBox.Text.Length+3);
+                }
                 numberButton.displayBox.Text = numberButton.displayBox.Text + numberButton.textBox.Text + " ÷ ";
                 flag = 0; checkVal = false;
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
@@ -234,6 +250,7 @@ namespace Calculator
         {
             if (numberButton.textBox.Text.Length < 8)
             {
+                
                 numberButton.textBox.Text = numberButton.textBox.Text + btn;
             }
             else if (numberButton.textBox.Text.Length >= 8 && numberButton.textBox.Text.Length < 11)
@@ -261,6 +278,7 @@ namespace Calculator
                 numberButton.textBox.FontSize = 48.0;
                 numberButton.textBox.Text = numberButton.textBox.Text + btn;
             }
+            
         }
         void checkCalculate(string operate)
         {
