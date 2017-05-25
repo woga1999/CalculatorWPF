@@ -54,13 +54,18 @@ namespace Calculator
         }
         void btn_C_Click(object sender, RoutedEventArgs e)
         {
+            numberButton.textBox.FontSize = 94.0;
             numberButton.textBox.Text = "0";
             numberButton.displayBox.Clear();
             operate = null;
+            value1 = 0;
+            value2 = 0;
         }
 
         void btn_CE_Click(object sender, RoutedEventArgs e)
         {
+            numberButton.textBox.FontSize = 94.0;
+            value1 = 0;
             numberButton.textBox.Text = "0";
         }
 
@@ -95,6 +100,18 @@ namespace Calculator
                 numberButton.textBox.Clear();
                 flag = 1;
             }
+            else if (numberButton.textBox.Text.Contains("니다."))
+            {
+                numberButton.buttonPlus.IsEnabled = true;
+                numberButton.buttonMinus.IsEnabled = true;
+                numberButton.buttonDivision.IsEnabled = true;
+                numberButton.buttonMultiple.IsEnabled = true;
+                numberButton.buttonPlma.IsEnabled = true;
+                numberButton.buttonDot.IsEnabled = true;
+                operate = null;
+                numberButton.textBox.FontSize = 94.0;
+                numberButton.textBox.Clear();
+            }
             lengthFontSize(btn.Content);
         }
         
@@ -113,7 +130,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " + ";
                 value1 = Convert.ToDouble(numberButton.textBox.Text);
                 operate = "+";
-                flag = 0;
+                flag = 0; checkVal = false;
             }
             else
             {
@@ -136,7 +153,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " - ";
                 value1 = Convert.ToDouble(numberButton.textBox.Text);
                 operate = "-";
-                flag = 0;
+                flag = 0; checkVal = false;
             }
             else
             {
@@ -159,7 +176,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " x ";
                 value1= Convert.ToDouble(numberButton.textBox.Text);
                 operate = "*";
-                flag = 0;
+                flag = 0; checkVal = false;
             }
             else
             {
@@ -182,7 +199,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " ÷ ";
                 value1 = Convert.ToDouble(numberButton.textBox.Text);
                 operate = "/";
-                flag = 0;
+                flag = 0; checkVal = false;
             }
             else
             {
@@ -216,13 +233,28 @@ namespace Calculator
 
         void btn_Equals_Clikc(object sender, RoutedEventArgs e)
         {
-            if (checkVal.Equals(false))
+            if (numberButton.textBox.Text.Contains("니다."))
             {
-                value2 = Convert.ToDouble(numberButton.textBox.Text);
-                checkVal = true;
+                numberButton.buttonPlus.IsEnabled = true;
+                numberButton.buttonMinus.IsEnabled = true;
+                numberButton.buttonDivision.IsEnabled = true;
+                numberButton.buttonMultiple.IsEnabled = true;
+                numberButton.buttonPlma.IsEnabled = true;
+                numberButton.buttonDot.IsEnabled = true;
+                operate = null;
+                numberButton.textBox.FontSize = 94.0;
+                numberButton.textBox.Text = "0";
             }
-            numberButton.displayBox.Clear();
-            checkCalculate(operate);
+            else
+            {
+                if (checkVal.Equals(false))
+                {
+                    value2 = Convert.ToDouble(numberButton.textBox.Text);
+                    checkVal = true;
+                }
+                numberButton.displayBox.Clear();
+                checkCalculate(operate);
+            }
         }
 
         double Add(double value1, double value2)
@@ -273,13 +305,18 @@ namespace Calculator
                 numberButton.textBox.FontSize = 52.0;
                 numberButton.textBox.Text = numberButton.textBox.Text + btn;
             }
-            else if (numberButton.textBox.Text.Length >= 14 && numberButton.textBox.Text.Length < 16)
+            else if (numberButton.textBox.Text.Length >= 14 && !numberButton.textBox.Text.Contains(".")&& numberButton.textBox.Text.Length < 16)
             {
                 numberButton.textBox.FontSize = 48.0;
                 numberButton.textBox.Text = numberButton.textBox.Text + btn;
             }
-            
+            else if (numberButton.textBox.Text.Length>=14 && numberButton.textBox.Text.Contains(".") && numberButton.textBox.Text.Length < 17)
+            {
+                numberButton.textBox.FontSize = 46.0;
+                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+            }
         }
+
         void checkCalculate(string operate)
         {
             if (operate == "+")
@@ -302,9 +339,36 @@ namespace Calculator
             }
             else if (operate == "/")
             {
-                result = Division(value1, value2);
-                numberButton.textBox.Text = result.ToString();
-                value1 = result;
+                if (value1 != 0 && value2 == 0)
+                {
+                    numberButton.textBox.FontSize = 36.0;
+                    numberButton.textBox.Text = "0으로 나눌 수 없습니다. ";
+                    value1 = 0;
+                    numberButton.buttonPlus.IsEnabled = false;
+                    numberButton.buttonMinus.IsEnabled = false;
+                    numberButton.buttonDivision.IsEnabled = false;
+                    numberButton.buttonMultiple.IsEnabled = false;
+                    numberButton.buttonPlma.IsEnabled = false;
+                    numberButton.buttonDot.IsEnabled = false;
+                    
+                }
+                else if (value1 == 0 && value2 == 0)
+                {
+                    numberButton.textBox.FontSize = 30.0;
+                    numberButton.textBox.Text = "정의되지 않는 결과입니다. ";
+                    numberButton.buttonPlus.IsEnabled = false;
+                    numberButton.buttonMinus.IsEnabled = false;
+                    numberButton.buttonDivision.IsEnabled = false;
+                    numberButton.buttonMultiple.IsEnabled = false;
+                    numberButton.buttonPlma.IsEnabled = false;
+                    numberButton.buttonDot.IsEnabled = false;
+                }
+                else
+                {
+                    result = Division(value1, value2);
+                    numberButton.textBox.Text = result.ToString();
+                    value1 = result;
+                }
             }
         }
     }
