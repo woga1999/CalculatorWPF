@@ -49,12 +49,13 @@ namespace Calculator
             numberButton.buttonPlma.Click += btn_Plma_Click;
             numberButton.buttonZero.Click += btn_Num_Click;
             numberButton.buttonDot.Click += btn_Dot_Click;
-            //numberButton.buttonEqual.Click += btnCEClick;
+            numberButton.buttonEqual.Click += btn_Equals_Clikc;
         }
         void btn_C_Click(object sender, RoutedEventArgs e)
         {
             numberButton.textBox.Text = "0";
             numberButton.displayBox.Clear();
+            operate = null;
         }
 
         void btn_CE_Click(object sender, RoutedEventArgs e)
@@ -88,7 +89,7 @@ namespace Calculator
             {
                 numberButton.textBox.Clear();
             }
-            if(flag==0 && (numberButton.displayBox.Text.Contains("+")|| numberButton.displayBox.Text.Contains("*")|| numberButton.displayBox.Text.Contains("-")|| numberButton.displayBox.Text.Contains("/")))
+            if(flag==0 && (numberButton.displayBox.Text.Contains("+")|| numberButton.displayBox.Text.Contains("x") || numberButton.displayBox.Text.Contains("-" )|| numberButton.displayBox.Text.Contains("÷")))
             {
                 numberButton.textBox.Clear();
                 flag = 1;
@@ -137,6 +138,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " + ";
                 value1 = Convert.ToDouble(numberButton.textBox.Text);
                 operate = "+";
+                flag = 0;
             }
             else
             {
@@ -155,6 +157,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " - ";
                 value1 = Convert.ToDouble(numberButton.textBox.Text);
                 operate = "-";
+                flag = 0;
             }
             else
             {
@@ -163,9 +166,6 @@ namespace Calculator
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "-";
-                //result = Minus(value1, value2);
-                //numberButton.textBox.Text = result.ToString();
-                //value1 = result;
             }
 
         }
@@ -176,6 +176,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " x ";
                 value1= Convert.ToDouble(numberButton.textBox.Text);
                 operate = "*";
+                flag = 0;
             }
             else
             {
@@ -184,9 +185,6 @@ namespace Calculator
                 value2 = Convert.ToDouble(numberButton.textBox.Text);
                 checkCalculate(operate);
                 operate = "*";
-                //result = Multiple(value1, value2);
-                //numberButton.textBox.Text = result.ToString();
-                //value1 = result;
             }
             
         }
@@ -197,6 +195,7 @@ namespace Calculator
                 numberButton.displayBox.Text = numberButton.textBox.Text + " ÷ ";
                 value1 = Convert.ToDouble(numberButton.textBox.Text);
                 operate = "/";
+                flag = 0;
             }
             else
             {
@@ -229,7 +228,9 @@ namespace Calculator
 
         void btn_Equals_Clikc(object sender, RoutedEventArgs e)
         {
+            value2 = Convert.ToDouble(numberButton.textBox.Text);
             numberButton.displayBox.Clear();
+            checkCalculate(operate);
         }
 
         double Add(double value1, double value2)
