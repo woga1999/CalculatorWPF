@@ -23,19 +23,19 @@ namespace Calculator
         ScaleTransform scale = new ScaleTransform();//윈도우 크기 바뀔 때 필요한 객체
         NumberButton numberButton = new NumberButton(); 
         double orginalWidth, originalHeight;
-        private string operate = null;
-        private double value1 = 0;
-        private double value2 = 0;
-        private double result = 0;
-        private int flag = 0;
-        private bool checkVal = false;
+        private string operate = null; //내가 무슨 연산이 필요한지 저장하는 변수
+        private double value1 = 0; //연산 할 때 저장되는 변수 1
+        private double value2 = 0; //연산 할 때 저장되는 변수 2
+        private double result = 0; //결과값을 저장하는 변수
+        private int flag = 0; //flag를 세워 연산하고 난 후 텍스트박스에 뜨게하는 걸 결정한다
+        private bool checkVal = false; //=을 계속 눌렀을 때 마지막으로 저장한 val2 값이 계속해서 연산되게 하는 장치
         bool plus = false; //연산자 다시 눌러도 계산 안되게끔 하는 장치
         bool minus = false; 
         bool multiple = false;
         bool division = false;
-        bool numCE = false;
-        bool resultCE = false;
-        bool equalCheck;
+        bool numCE = false; //CE를 눌렀을 때 연산 중이던 값을 초기화하면 발생하는 bool
+        bool resultCE = false;  //CE를 눌렀을 때 결과값을 초기화하면 발생하는 bool
+        bool equalCheck; //=을 하는지 안하는지 체크하는 bool
         public MainWindow()
         {
             InitializeComponent();
@@ -75,12 +75,12 @@ namespace Calculator
         void btn_CE_Click(object sender, RoutedEventArgs e)
         {
             numberButton.textBox.FontSize = 85.8;
-            numCE = true;
-            resultCE = true;
+            numCE = true; //어느 상태에서 초기화한지 모르니깐 NumCE도 켜주고
+            resultCE = true; //resultCE도 켜준다.
             numberButton.textBox.Text = "0";
         }
 
-        void btn_BackSpace_Click(object sender, RoutedEventArgs e)
+        void btn_BackSpace_Click(object sender, RoutedEventArgs e) //연산중이 아닐 때 BS하면 숫자가 한 칸씩 지워진다.
         {
             if (!numberButton.textBox.Text.Equals("") || !(numberButton.textBox.Text.Equals("0")))
             {
@@ -99,7 +99,7 @@ namespace Calculator
             } 
            
         }
-        void btn_Num_Click(object sender, RoutedEventArgs e)
+        void btn_Num_Click(object sender, RoutedEventArgs e) //숫자 버튼들을 누를 때 발생한다.
         {
             Button btn = sender as Button;
             plus = false;
@@ -121,7 +121,7 @@ namespace Calculator
                 numberButton.textBox.Clear();
                 flag = 1;
             }
-            else if (numberButton.textBox.Text.Contains("니다."))
+            else if (numberButton.textBox.Text.Contains("니다.")) //~할 수 없다는 문장이 뜨면 막아놨던 장치들 다 정상화
             {
                 resultCE = false;
                 numberButton.buttonPlus.IsEnabled = true;
@@ -151,7 +151,7 @@ namespace Calculator
             }
         }
 
-        void btn_Plus_Click(object sender, RoutedEventArgs e)
+        void btn_Plus_Click(object sender, RoutedEventArgs e) //더하기 연산을 누를 때 발생하는 함수
         {
             if (plus.Equals(false))
             {
@@ -181,7 +181,7 @@ namespace Calculator
             }
         }
 
-        void btn_Minus_Click(object sender, RoutedEventArgs e)
+        void btn_Minus_Click(object sender, RoutedEventArgs e) //빼기 연산을 누를 때 발생하는 함수
         {
             if (minus.Equals(false))
             {
@@ -210,7 +210,7 @@ namespace Calculator
                 division = false;
             }
         }
-        void btn_Multiple_Click(object sender, RoutedEventArgs e)
+        void btn_Multiple_Click(object sender, RoutedEventArgs e) //곱하기 연산을 누를 때 발생하는 함수
         {
             if (multiple.Equals(false))
             {
@@ -239,7 +239,7 @@ namespace Calculator
                 division = false;
             }
         }
-        void btn_Division_Click(object sender, RoutedEventArgs e)
+        void btn_Division_Click(object sender, RoutedEventArgs e) //나누기 연산을 누를 때 발생하는 함수
         {
             if (division.Equals(false))
             {
@@ -269,7 +269,7 @@ namespace Calculator
             }   
         }
 
-        void btn_Plma_Click(object sender, RoutedEventArgs e)
+        void btn_Plma_Click(object sender, RoutedEventArgs e) //negative positive를 붙이는 함수
         {
             if (numberButton.textBox.Text.Contains("-"))
             {
@@ -284,7 +284,7 @@ namespace Calculator
             }
         }
 
-        void btn_Equals_Clikc(object sender, RoutedEventArgs e)
+        void btn_Equals_Clikc(object sender, RoutedEventArgs e) //=를 누를 때 발생하는 함수
         {
             if (numberButton.textBox.Text.Contains("니다."))
             {
@@ -313,10 +313,12 @@ namespace Calculator
                     }
                     checkVal = true;
                 }
-                if (resultCE.Equals(true))
+                if (resultCE.Equals(true)) //만약 numCE가 트루면 if를 거치고 resultCE를 false라 한다
                 {
                     value1 = 0;
                 }
+                numCE = false;
+                resultCE = false;
                 numberButton.displayBox.Clear();
                 checkCalculate(operate);
             }
@@ -347,13 +349,26 @@ namespace Calculator
             return value1 / value2;
         }
 
-        void lengthFontSize(object btn) //텍스트 길이에 따라 크기 변화하는 함수
+        void lengthFontSize(object btn) //텍스트 길이에 따라 텍스트 크기를 조절해서 16자리까지 입력받을 수 있다.
         {
+            //int index, numcount = 0, commaCount = 0;
             if (numberButton.textBox.Text.Length < 8)
             {
                 numberButton.textBox.FontSize = 85.8;
                 //numberButton.textBox.Text = string.Format("{0:n}", numberButton.textBox.Text+ btn);
-                numberButton.textBox.Text = numberButton.textBox.Text + btn;
+                if (btn.ToString() == "0")
+                {
+                    numberButton.textBox.Text = "0";
+                }
+                else
+                {
+                    numberButton.textBox.Text = numberButton.textBox.Text + btn;
+                }
+                    //if (!numberButton.textBox.Text.Contains("."))
+                    //{
+                    //    numberButton.textBox.Text = string.Format("{0:N0}", numberButton.textBox.Text + btn);
+                    //}
+                
             }
             else if (numberButton.textBox.Text.Length >= 8 && numberButton.textBox.Text.Length < 11)
             {
