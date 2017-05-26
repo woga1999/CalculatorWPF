@@ -34,7 +34,8 @@ namespace Calculator
         bool multiple = false;
         bool division = false;
         bool numCE = false;
-        bool resultCE = false; 
+        bool resultCE = false;
+        bool equalCheck;
         public MainWindow()
         {
             InitializeComponent();
@@ -105,19 +106,24 @@ namespace Calculator
             minus = false;
             multiple = false;
             division = false;
+            numCE = false;
+            resultCE = false;
 
             if (numberButton.textBox.Text == "0")
             {
+                resultCE = false;
                 numberButton.textBox.Clear();
             }
 
             if(flag==0 && (numberButton.displayBox.Text.Contains("+")|| numberButton.displayBox.Text.Contains("x") || numberButton.displayBox.Text.Contains("-" )|| numberButton.displayBox.Text.Contains("÷")))
             {
+                resultCE = false;
                 numberButton.textBox.Clear();
                 flag = 1;
             }
             else if (numberButton.textBox.Text.Contains("니다."))
             {
+                resultCE = false;
                 numberButton.buttonPlus.IsEnabled = true;
                 numberButton.buttonMinus.IsEnabled = true;
                 numberButton.buttonDivision.IsEnabled = true;
@@ -127,6 +133,11 @@ namespace Calculator
                 operate = null;
                 numberButton.textBox.FontSize = 94.0;
                 numberButton.textBox.Clear();
+            }
+            else if (equalCheck.Equals(true))
+            {
+                numberButton.textBox.Clear();
+                resultCE = true;
             }
 
             lengthFontSize(btn.Content);
@@ -306,8 +317,6 @@ namespace Calculator
                 {
                     value1 = 0;
                 }
-                numCE = false;
-                resultCE = false;
                 numberButton.displayBox.Clear();
                 checkCalculate(operate);
             }
@@ -315,6 +324,7 @@ namespace Calculator
             minus = false;
             multiple = false;
             division = false;
+            equalCheck = true;
         }
 
         double Add(double value1, double value2)
@@ -324,7 +334,6 @@ namespace Calculator
 
         double Minus(double value1, double value2)
         {
-            if (value1 == 0) { value2 = -value2; }
             return value1 - value2;
         }
 
